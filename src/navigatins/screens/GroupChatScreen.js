@@ -12,7 +12,7 @@ const GroupChat = () => {
   useEffect(() => {
     const subscriber = firestore()
       .collection('groupChats')
-      .doc(route.params.groupId) // Assuming you have a groupId for the group chat
+      .doc(123456) // Assuming you have a groupId for the group chat
       .collection('messages')
       .orderBy('createdAt', 'desc');
 

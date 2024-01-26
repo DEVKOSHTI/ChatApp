@@ -12,6 +12,7 @@ const goToNext = async (mobile, id) => {
 
 const LoginScreen = ({ navigation }) => {
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [name, setname] = useState('');
   const [confirmationCode, setConfirmationCode] = useState('');
   const [verificationId, setVerificationId] = useState(null);
 
@@ -52,6 +53,7 @@ const LoginScreen = ({ navigation }) => {
       firestore().collection('users').doc(providerId).set({
         mobile: phoneNumber,
         userId: providerId,
+        name: name
       })
       goToNext(phoneNumber, providerId);
       navigation.navigate('ChatList');
@@ -62,7 +64,11 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <View>
-      <Text>Login Screen</Text>
+      <TextInput
+        placeholder="name"
+        value={name}
+        onChangeText={(text) => setname(text)}
+      />
       <TextInput
         placeholder="Phone Number"
         value={phoneNumber}

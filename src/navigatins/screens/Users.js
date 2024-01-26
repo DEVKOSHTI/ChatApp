@@ -31,7 +31,7 @@ const Users = () => {
         let tempData = [];
         const email = await AsyncStorage.getItem('MOBILE');
         firestore().collection('users').where('mobile', '!=', email).get().then(res => {
-            if (res.docs.length != []) {
+            if (res.docs != []) {
                 res.docs.map(item => {
                     tempData.push(item.data());
                     console.log(tempData)
@@ -54,7 +54,7 @@ const Users = () => {
                             onPress={() => {
                                 navigation.navigate('Chat', { data: item, id: id });
                             }}>
-                            <Text style={styles.name}>{item.mobile}</Text>
+                            <Text style={styles.name}>{item.name}</Text>
                         </TouchableOpacity>
                     );
                 }}
