@@ -17,15 +17,12 @@ const LoginScreen = ({ navigation }) => {
   const [verificationId, setVerificationId] = useState(null);
 
   useEffect(() => {
-    // Check if the user is already authenticated
     const unsubscribe = auth().onAuthStateChanged((user) => {
       if (user) {
-        // User is already authenticated, navigate to ChatList
         navigation.navigate('ChatList');
       }
     });
 
-    // Clean up the listener when the component unmounts
     return () => unsubscribe();
   }, [navigation]);
 

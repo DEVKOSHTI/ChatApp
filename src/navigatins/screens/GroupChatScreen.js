@@ -12,7 +12,7 @@ const GroupChat = () => {
   useEffect(() => {
     const subscriber = firestore()
       .collection('groupChats')
-      .doc(123456) // Assuming you have a groupId for the group chat
+      .doc(123456)
       .collection('messages')
       .orderBy('createdAt', 'desc');
 
@@ -23,7 +23,7 @@ const GroupChat = () => {
       setMessageList(allMessages);
     });
 
-    return () => subscriber(); // Cleanup function for unsubscribe
+    return () => subscriber();
   }, [route.params.groupId]);
 
   const onSend = useCallback(async (messages = []) => {
