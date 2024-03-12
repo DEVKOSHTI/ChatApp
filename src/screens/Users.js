@@ -6,13 +6,17 @@ import {
     Dimensions,
     Image,
     TouchableOpacity,
+    BackHandler,
+    Button,
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import firestore from '@react-native-firebase/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
+import { useLogin } from '../context/LoginProvider';
 let id = '';
 const Users = () => {
+    const { setIsLoggedIn } = useLogin()
     const [users, setUsers] = useState([]);
     const navigation = useNavigation();
     const [mode, setMode] = useState('LIGHT');
@@ -29,8 +33,8 @@ const Users = () => {
     const getUsers = async () => {
         id = await AsyncStorage.getItem('UID');
         let tempData = [];
-        const email = await AsyncStorage.getItem('MOBILE');
-        firestore().collection('users').where('mobile', '!=', email).get().then(res => {
+        const Mobile = await AsyncStorage.getItem('MOBILE');
+        firestore().collection('users').where('mobile', '!=', Mobile).get().then(res => {
             if (res.docs != []) {
                 res.docs.map(item => {
                     tempData.push(item.data());

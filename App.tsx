@@ -1,10 +1,16 @@
 import { View, Text } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
-import AppNavigator from './src/navigatins/AppNavigator';
+import LoginProvider from './src/context/LoginProvider';
+import MainNavigator from './src/navigatins/MainNavigator';
 
 const App = () => {
   return (
-    <AppNavigator />
+    <LoginProvider>
+      <NavigationContainer>
+        <MainNavigator />
+      </NavigationContainer>
+    </LoginProvider>
   );
 };
 

@@ -4,27 +4,20 @@ import { View, Text, TextInput, Button } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useLogin } from '../context/LoginProvider';
 
 const goToNext = async (mobile, id) => {
   await AsyncStorage.setItem('MOBILE', mobile)
   await AsyncStorage.setItem('UID', id)
 }
 
-const LoginScreen = ({ navigation }) => {
+const LoginScreen = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [name, setname] = useState('');
   const [confirmationCode, setConfirmationCode] = useState('');
   const [verificationId, setVerificationId] = useState(null);
 
-  useEffect(() => {
-    const unsubscribe = auth().onAuthStateChanged((user) => {
-      if (user) {
-        navigation.navigate('ChatList');
-      }
-    });
-
-    return () => unsubscribe();
-  }, [navigation]);
+  const { setIsLoggedIn } = useLogin()
 
   const handleSendCode = async () => {
     try {
@@ -53,7 +46,7 @@ const LoginScreen = ({ navigation }) => {
         name: name
       })
       goToNext(phoneNumber, providerId);
-      navigation.navigate('ChatList');
+      setIsLoggedIn(true)
     } catch (error) {
       console.error(error.message);
     }

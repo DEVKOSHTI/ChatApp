@@ -20,7 +20,7 @@ const Chat = () => {
             });
             setMessageList(allmessages);
         });
-        return () => subscriber();
+        return () => subscriber()
     }, []);
 
     const onSend = useCallback(async (messages = []) => {
